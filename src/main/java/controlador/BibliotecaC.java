@@ -1,11 +1,12 @@
 package controlador;
 import modelo.Biblioteca;
+import vista.BibliotecaV;
 import modelo.Libro;
 import modelo.Usuario;
 
 public class BibliotecaC {
 
-
+        private BibliotecaV bibliotecaV;
         private Biblioteca biblioteca;
 
         public BibliotecaC() {
@@ -26,12 +27,18 @@ public class BibliotecaC {
             return biblioteca.realizarPrestamo(idLibro, idUsuario);
         }
 
-        public void generarReporte() {
-            biblioteca.generarReporte();
+
+        public int getTotalLibros() {
+            return biblioteca.getTotalLibros();
         }
 
-        public Biblioteca getBiblioteca() {
-            return biblioteca;
+        public int getTotalUsuarios() {
+            return biblioteca.getTotalUsuarios();
+        }
+
+        public int getTotalPrestamos() {
+            return biblioteca.getTotalPrestamos();
         }
     }
+
 

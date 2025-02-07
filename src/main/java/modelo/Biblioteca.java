@@ -34,12 +34,15 @@ public class Biblioteca {
         }
         return false;
     }
+    public int getTotalLibros() {
+        return libros.size();
+    }
 
-    public void generarReporte() {
-        System.out.println("Reporte de Biblioteca:");
-        System.out.println("Total de libros: " + libros.size());
-        System.out.println("Total de usuarios: " + usuarios.size());
-        System.out.println("Total de préstamos: " + prestamos.size());
+    public int getTotalUsuarios() {
+        return usuarios.size();
+    }
 
+    public int getTotalPrestamos() {
+        return prestamos.size();
     }
 }
