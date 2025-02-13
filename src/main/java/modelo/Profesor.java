@@ -56,4 +56,5 @@ public class Profesor {
     public String toString() {
         return nombre + " (Nómina: " + numNomina + ", Status: " + status + ")";
     }
+
 }

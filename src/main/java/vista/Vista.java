@@ -6,14 +6,13 @@ import modelo.Curso;
 import modelo.Alumno;
 import modelo.Profesor;
 import modelo.Materia;
-import controlador.GestorAlumno;
 import controlador.GestorCurso;
 import controlador.GestorPagos;
 import controlador.GestorProfesor;
 
 public class Vista {
     private Scanner scanner;
-    private GestorPagos gestorPagos;
+    public GestorPagos gestorPagos;
     private GestorProfesor gestorProfesor;
     private GestorCurso gestorCurso; // Nuevo gestor para cursos
     private ArrayList<Alumno> alumnos;
@@ -38,9 +37,10 @@ public class Vista {
             System.out.println("7. Mostrar Profesores");
             System.out.println("8. Mostrar Cursos");
             System.out.println("9. Agregar Curso");
-            System.out.println("10. Agregar Alumno a Curso"); // Nueva opción
-            System.out.println("11. Agregar Profesor a Curso"); // Nueva opción
-            System.out.println("12. Salir");
+            System.out.println("10. Agregar Alumno a Curso");
+            System.out.println("11. Agregar Profesor a Curso");
+            System.out.println("12. Asignar Materia a Profesor");
+            System.out.println("13. Salir");
             System.out.print("Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
@@ -60,7 +60,8 @@ public class Vista {
                     eliminarAlumno();
                     break;
                 case 5:
-                    gestorPagos.calcularYMostrarPagos();
+
+                    mostrarPagos();
                     break;
                 case 6:
                     mostrarAlumnos();
@@ -81,6 +82,9 @@ public class Vista {
                     agregarProfesorACurso(); // Llamar al método para agregar profesor a curso
                     break;
                 case 12:
+                    asignarMateriaAProfesor();
+                    break;
+                case 13:
                     System.out.println("Saliendo del programa...");
                     return;
                 default:
@@ -95,6 +99,18 @@ public class Vista {
             System.out.println(i + ": " + gestorCurso.getCursos().get(i));
         }
     }
+    private void mostrarPagos() {
+        System.out.println("=== LISTA DE PROFESORES ===");
+        ArrayList<String> resultados = gestorPagos.calcularPagos();
+        if (resultados.isEmpty()) {
+            System.out.println("No hay profesores registrados."); // Mensaje en Vista si no hay profesores
+        } else {
+            for (String resultado : resultados) {
+                System.out.println(resultado); // Mostrar resultados en Vista
+            }
+        }
+    }
+
     private void agregarProfesor() {
         System.out.print("Ingrese el nombre del profesor: ");
         String nombre = scanner.nextLine();
@@ -149,6 +165,33 @@ public class Vista {
             System.out.println(alumno);
         }
     }
+    private void asignarMateriaAProfesor() {
+        mostrarProfesores(); // Mostrar lista de profesores
+        System.out.print("Seleccione el índice del profesor al que desea asignar una materia: ");
+        int indiceProfesor = scanner.nextInt();
+        scanner.nextLine(); // Consumir salto de línea
+
+        if (indiceProfesor < 0 || indiceProfesor >= gestorProfesor.getProfesores().size()) {
+            System.out.println("Índice de profesor no válido.");
+            return;
+        }
+
+        Profesor profesorSeleccionado = gestorProfesor.getProfesores().get(indiceProfesor);
+        System.out.print("Ingrese el nombre de la materia: ");
+        String nombreMateria = scanner.nextLine();
+        System.out.print("Ingrese la clave de la materia: ");
+        String claveMateria = scanner.nextLine();
+        System.out.print("Ingrese los créditos de la materia: ");
+        int creditos = scanner.nextInt();
+        System.out.print("Ingrese las horas semanales de la materia: ");
+        int horasSemanales = scanner.nextInt();
+        scanner.nextLine(); // Consumir salto de línea
+
+        Materia materia = new Materia(nombreMateria, claveMateria, creditos, horasSemanales);
+        profesorSeleccionado.asignarMateria(materia); // Asignar materia al profesor
+        System.out.println("Materia asignada correctamente al profesor.");
+    }
+
     private void mostrarProfesores() {
         System.out.println("\n=== LISTA DE PROFESORES ===");
         for (Profesor profesor : gestorProfesor.getProfesores()) {
@@ -226,4 +269,6 @@ public class Vista {
         Profesor profesor = new Profesor(nombre, numNomina, 250);
         cursoSeleccionado.agregarProfesor(profesor); // Agregar profesor al curso
         System.out.println("Profesor agregado correctamente al curso.");
-    }}
+    }
+
+}

@@ -28,7 +28,7 @@ public class Curso {
         profesores.add(profesor); // Agregar profesor al curso
     }
 
-    public static String getNombre() {
+    public String toString() {
         return "Curso: " + nombre + " (" + getTotalCreditos() + " créditos)";
     }
 

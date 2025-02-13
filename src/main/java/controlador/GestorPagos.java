@@ -9,11 +9,12 @@ public class GestorPagos {
         profesores.add(profesor);
     }
 
-    public void calcularYMostrarPagos() {
-        System.out.println("\n=== PAGOS A PROFESORES ===");
+    public ArrayList<String> calcularPagos() {
+        ArrayList<String> resultados = new ArrayList<>();
         for (Profesor profesor : profesores) {
             double sueldoSemanal = profesor.calcularSueldoSemanal();
-            System.out.println(Profesor.getNombre() + " - Sueldo semanal: $" + sueldoSemanal);
+            resultados.add(profesor.toString() + " - Sueldo semanal: $" + sueldoSemanal);
         }
+        return resultados;
     }
 }

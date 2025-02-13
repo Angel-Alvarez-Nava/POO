@@ -18,7 +18,7 @@ public class GestorCurso {
 
     public Curso buscarCurso(String nombre) {
         for (Curso curso : cursos) {
-            if (curso.getNombre().equalsIgnoreCase(nombre)) {
+            if (curso.toString().equalsIgnoreCase(nombre)) {
                 return curso;
             }
         }
